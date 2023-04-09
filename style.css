@@ -1,0 +1,16 @@
+@charset "utf-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+#wrap {
+  background-color: rgb(54, 53, 53);
+  width: 100vw;
+  height: 100vh;
+}
+@media screen and (min-width: 30em) {
+  #wrap {
+    width: 56.25vh;
+    margin: 0 auto;
+  }
+}
