@@ -1,14 +1,97 @@
 @charset "utf-8";
+@font-face {
+  font-family: "jua";
+  src: url("Jua/Jua-Regular.ttf") format("truetype");
+}
+:root {
+  font-size: calc(50vh / 16);
+}
+
 * {
+  color: rgb(36, 36, 36);
+  font-family: "jua";
   margin: 0;
   padding: 0;
 }
+
+.none {
+  display: none;
+}
+
+.box {
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scale_hover:hover {
+  transform: scale(1.4, 1.4);
+}
+
+.scale_hover {
+  transition: transform ease 0.3s 0s;
+}
+
 #wrap {
-  background-color: rgb(54, 53, 53);
+  background-color: rgb(36, 36, 36);
   width: 100vw;
   height: 100vh;
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(16, 1fr);
+  grid-template-columns: repeat(9, 1fr);
+  gap: calc(1 / 16 * 9vh);
 }
-@media screen and (min-width: 30em) {
+
+#title {
+  font-size: 2rem;
+  grid-row: 3 / span 2;
+  grid-column: 2 / span 7;
+}
+
+#start {
+  font-size: 1.5rem;
+  grid-row: 9 / span 2;
+  grid-column: 3 / span 5;
+}
+
+#how_to {
+  font-size: 1.5rem;
+  grid-row: 12 / span 2;
+  grid-column: 3 / span 5;
+}
+
+#blur {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#manual {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 1rem;
+  border-radius: 1rem;
+  transform: translate(-50%, -50%);
+  width: 10rem;
+  background-color: rgb(130, 130, 130);
+  opacity: 0;
+  word-break: keep-all;
+}
+
+@media screen and (min-width: 480px) {
   #wrap {
     width: 56.25vh;
     margin: 0 auto;
