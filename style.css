@@ -60,7 +60,7 @@
   grid-column: 3 / span 5;
 }
 
-#blur {
+#background {
   display: none;
   width: 100vw;
   height: 100vh;
