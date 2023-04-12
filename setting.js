@@ -1,11 +1,13 @@
+const curry = (f) => (a) => (b) => f(a, b);
+
 function showManual() {
   const $blur = document.getElementById("blur");
-  $blur.classList.toggle("none");
+  $blur.style.display = "block";
   const blurAnimation = (s) => ($blur.style.backdropFilter = `blur(${s}px)`);
   linearAnimation(blurAnimation, 0, 5, 0.3, 60);
   const $manual = document.getElementById("manual");
-  $manual.classList.toggle("none");
-  $manual.classList.toggle("flex");
+  $manual.style.display = "flex";
+  $manual.classList.toggle("flex", true);
   const invisibleAnimation = (s) => ($manual.style.opacity = s);
   linearAnimation(invisibleAnimation, 0, 1, 0.3, 60);
   $manual.addEventListener("click", hideManual);
@@ -18,9 +20,12 @@ function hideManual() {
   const $blur = document.getElementById("blur");
   const blurAnimation = (s) => ($blur.style.backdropFilter = `blur(${s}px)`);
   linearAnimation(blurAnimation, 5, -5, 0.3, 60);
-  setTimeout($manual.classList.toggle, 300, "none");
-  setTimeout($manual.classList.toggle, 300, "flex");
-  setTimeout($blur.classList.toggle, 300, "none");
+  const blrdis = (b) => ($blur.style.display = b);
+  const mandis = (b) => ($manual.style.display = b);
+  $blur.style.display = "none";
+  setTimeout(blrdis, 300, "none");
+  setTimeout($manual.classList.toggle, 300, "flex", false);
+  setTimeout(mandis, 300, "none");
 }
 
 function linearAnimation(animation, init, strength, time, frame) {
