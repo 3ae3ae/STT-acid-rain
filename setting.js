@@ -1,11 +1,3 @@
-const curry = (f) => (a) => (b) => f(a, b);
-
-function linearAnimation(animation, init, strength, time, frame) {
-  for (let i = 0; i <= time; i += 1 / frame) {
-    setTimeout(animation, i * 1000, init + (i * strength) / time);
-  }
-}
-
 function showManual() {
   const $background = document.getElementById("background");
   $background.style.display = "block";
@@ -50,27 +42,20 @@ function start() {
   setTimeout(() => ($how_to.style.display = "none"), 300);
   setTimeout(() => linearAnimation(invisibleAnimation, 1, -1, 0.3, 60), 300);
   setTimeout(() => ($background.style.display = "none"), 600);
-  setTimeout(game, 605);
+  setTimeout(countdown, 605);
 }
 
-class rainDrop {
-  constructor(word = "", x = 0, v = 0) {
-    this.word = word;
-    this.y = 0;
-    this.x = x;
-    this.v = v;
-  }
-
-  drop() {
-    this.y -= this.v;
-  }
-}
-
-function game() {
-  // 단어 만들기
-  // 단어 내리게 하기
-  // 음성인식해서 단어 삭제하기
-  // 단어 위치 반영하기
+function countdown() {
+  const $count = document.createElement("div");
+  $count.classList.add("count", "box");
+  $count.textContent = "3";
+  $wrap.appendChild($count);
+  setTimeout(() => ($count.textContent = "2"), 1000);
+  setTimeout(() => ($count.textContent = "1"), 2000);
+  setTimeout(() => ($count.textContent = "Start"), 3000);
+  setTimeout(() => $wrap.removeChild($count), 4000);
+  setTimeout(() => ($wrap.style.display = "block"), 4000);
+  setTimeout(window.requestAnimationFrame, 4000, set);
 }
 
 const $start = document.getElementById("start");
