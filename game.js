@@ -5,7 +5,7 @@ class rainDrop {
     this.x = 0;
     this.me = this.init();
     this.draw();
-    $wrap.appendChild(this.me);
+    this.me.style.visibility = "visible";
   }
 
   init() {
@@ -14,9 +14,16 @@ class rainDrop {
     me.textContent = this.word;
     me.style.position = "absolute";
     me.style.padding = "0.5em";
+    me.style.wordBreak = "keep-all";
+    me.style.visibility = "hidden";
+    me.style.left = 0;
+    me.style.top = 0;
+    $wrap.appendChild(me);
     this.x =
       Math.random() *
-      (wrapWidth.slice(0, -2) - window.getComputedStyle(me).width.slice(0, -2));
+      (wrapWidth -
+        window.getComputedStyle(me).width.slice(0, -2) -
+        vhTopx(50 / 16));
     return me;
   }
 
@@ -24,10 +31,14 @@ class rainDrop {
     this.me.style.left = this.x + "px";
     this.me.style.top = this.y + "vh";
     const h =
-      pxTovh(window.getComputedStyle(this.me).height.slice(0, -2)) + this.y;
-    if (Math.ceil(h) > 100) {
+      pxTovh(window.getComputedStyle(this.me).height.slice(0, -2)) +
+      this.y +
+      pxTovh(window.getComputedStyle(this.me).height.slice(0, -2) / 2);
+    if (Math.ceil(h) >= 99) {
       window.cancelAnimationFrame(animeId);
+      return false;
     }
+    return true;
   }
 
   drop(v) {
@@ -52,10 +63,10 @@ function game(now = 0) {
   }
   const v = ((20 + time.level * 20) * time.frameCheck) / 1000;
   if (words.length)
-    words.forEach((word) => {
+    for (const word of words) {
       word.drop(v);
-      word.draw();
-    });
+      if (!word.draw()) return;
+    }
   time.frameStart = now;
   animeId = window.requestAnimationFrame(game);
 }

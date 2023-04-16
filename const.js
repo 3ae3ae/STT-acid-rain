@@ -1,5 +1,5 @@
 const $wrap = document.getElementById("wrap");
-const wrapWidth = window.getComputedStyle($wrap).width;
+const wrapWidth = window.getComputedStyle($wrap).width.slice(0, -2);
 const curry = (f) => (a) => (b) => f(a, b);
 const vxTopx = (vx) => (vx / 100) * window.innerWidth;
 const pxTovx = (px) => (px / window.innerWidth) * 100;
