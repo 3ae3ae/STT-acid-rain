@@ -1,3 +1,8 @@
+var SpeechRecognition = SpeechRecognition || window.webkitSpeechRecognition;
+var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList;
+var SpeechRecognitionEvent =
+  SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
+
 class rainDrop {
   constructor(word = "") {
     this.word = word;
@@ -35,8 +40,8 @@ class rainDrop {
       this.y +
       pxTovh(window.getComputedStyle(this.me).height.slice(0, -2) / 2);
     if (Math.ceil(h) >= 99) {
-      window.cancelAnimationFrame(animeId);
       return false;
+      //
     }
     return true;
   }
@@ -44,29 +49,72 @@ class rainDrop {
   drop(v) {
     this.y += v;
   }
+
+  delete() {
+    $wrap.removeChild(this.me);
+  }
+
+  text() {
+    return this.word;
+  }
 }
 
-const time = { start: 0, elapsed: 0, level: 2, frameStart: 0, frameCheck: 0 }; //생성주기: 3000/(level+1), 떨어지는 속도: 1초에 20 + level * 20 vh
+const time = { start: 0, elapsed: 0, level: 2, frameStart: 0, frameCheck: 0 }; //생성주기: 3000/(level+1), 떨어지는 속도: 1초에 5 + level * 10 vh
 const words = [];
 let animeId = 0;
+let recognizedWords = [];
+const recognition = new SpeechRecognition();
+recognition.lang = "ko-KR";
+recognition.continuous = false;
+recognition.interimResults = true;
+
 function set(now = 0) {
   time.start = now;
   time.frameStart = now;
   window.requestAnimationFrame(game);
+  recognition.start();
 }
 function game(now = 0) {
+  animeId = window.requestAnimationFrame(game);
   time.frameCheck = now - time.frameStart;
   time.elapsed = now - time.start;
   if (time.elapsed > 3000 / (time.level + 1)) {
-    words.push(new rainDrop("안녕"));
+    words.push(
+      new rainDrop(wordList[Math.floor(Math.random() * wordList.length)])
+    );
     time.start = now;
   }
-  const v = ((20 + time.level * 20) * time.frameCheck) / 1000;
-  if (words.length)
+  const v = ((5 + time.level * 10) * time.frameCheck) / 1000;
+  if (words.length) {
     for (const word of words) {
       word.drop(v);
-      if (!word.draw()) return;
+      if (!word.draw()) window.cancelAnimationFrame(animeId);
     }
+    if (recognizedWords.length) {
+      words.forEach((word, wi, words) =>
+        recognizedWords.forEach((recWord, ri, recWords) => {
+          if (word.text() == recWord) {
+            words.splice(wi, 1);
+            word.delete();
+            recWords.splice(ri, 1);
+          }
+        })
+      );
+      recognizedWords = [];
+    }
+  }
   time.frameStart = now;
-  animeId = window.requestAnimationFrame(game);
 }
+
+recognition.addEventListener("result", (event) => {
+  recognition.stop();
+  const result = event.results[0][0].transcript;
+  recognizedWords = recognizedWords.concat(
+    result.split(/!|\.|,|\?|\s|~/g).filter((x) => !!x)
+  );
+  console.log(recognizedWords);
+});
+
+recognition.addEventListener("end", () => {
+  recognition.start();
+});
