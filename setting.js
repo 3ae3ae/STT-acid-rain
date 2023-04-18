@@ -3,23 +3,23 @@ function showManual() {
   $background.style.display = "block";
   const blurAnimation = (s) =>
     ($background.style.backdropFilter = `blur(${s}px)`);
-  linearAnimation(blurAnimation, 0, 5, 0.3, 60);
+  linearAnimation(blurAnimation, 0, 5, 0.3, 30);
   const $manual = document.getElementById("manual");
   $manual.style.display = "flex";
   $manual.classList.toggle("flex", true);
   const invisibleAnimation = (s) => ($manual.style.opacity = s);
-  linearAnimation(invisibleAnimation, 0, 1, 0.3, 60);
+  linearAnimation(invisibleAnimation, 0, 1, 0.3, 30);
   $manual.addEventListener("click", hideManual);
 }
 
 function hideManual() {
   const $manual = document.getElementById("manual");
   const invisibleAnimation = (s) => ($manual.style.opacity = s);
-  linearAnimation(invisibleAnimation, 1, -1, 0.3, 60);
+  linearAnimation(invisibleAnimation, 1, -1, 0.3, 30);
   const $background = document.getElementById("background");
   const blurAnimation = (s) =>
     ($background.style.backdropFilter = `blur(${s}px)`);
-  linearAnimation(blurAnimation, 5, -5, 0.3, 60);
+  linearAnimation(blurAnimation, 5, -5, 0.3, 30);
   $background.style.display = "none";
   setTimeout(() => ($background.style.display = "none"), 300);
   setTimeout($manual.classList.toggle, 300, "flex", false);
@@ -35,12 +35,12 @@ function start() {
   $background.style.opacity = 0;
   $background.style.backgroundColor = "black";
   const invisibleAnimation = (s) => ($background.style.opacity = s);
-  linearAnimation(invisibleAnimation, 0, 1, 0.3, 60);
+  linearAnimation(invisibleAnimation, 0, 1, 0.3, 30);
   const $title = document.getElementById("title");
   setTimeout(() => ($title.style.display = "none"), 300);
   setTimeout(() => ($start.style.display = "none"), 300);
   setTimeout(() => ($how_to.style.display = "none"), 300);
-  setTimeout(() => linearAnimation(invisibleAnimation, 1, -1, 0.3, 60), 300);
+  setTimeout(() => linearAnimation(invisibleAnimation, 1, -1, 0.3, 30), 300);
   setTimeout(() => ($background.style.display = "none"), 600);
   setTimeout(countdown, 605);
 }

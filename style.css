@@ -7,6 +7,9 @@
 :root {
   font-size: calc(50vh / 16);
 }
+body {
+  background-color: black;
+}
 
 * {
   color: rgb(36, 36, 36);
@@ -91,6 +94,48 @@
   background-color: rgb(130, 130, 130);
   opacity: 0;
   word-break: keep-all;
+}
+#score {
+  display: none;
+  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  padding: 0.5em;
+  color: white;
+}
+#life {
+  display: none;
+  font-size: 1rem;
+  position: absolute;
+  top: 6%;
+  left: 4%;
+  color: white;
+}
+#gameover {
+  display: none;
+  width: 100%;
+  text-shadow: 0 0 5px black;
+  text-align: center;
+  font-size: 3rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+#recognized {
+  display: none;
+  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
 }
 
 @media screen and (min-width: 480px) {
