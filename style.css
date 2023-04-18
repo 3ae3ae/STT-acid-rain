@@ -8,7 +8,7 @@
   font-size: calc(50vh / 16);
 }
 body {
-  background-color: black;
+  background-color: rgb(26, 26, 26);
 }
 
 * {
@@ -96,6 +96,7 @@ body {
   word-break: keep-all;
 }
 #score {
+  z-index: 9999;
   display: none;
   font-size: 1rem;
   justify-content: center;
@@ -117,8 +118,9 @@ body {
 #gameover {
   display: none;
   width: 100%;
-  text-shadow: 0 0 5px black;
+  z-index: 9999;
   text-align: center;
+  text-shadow: 0 0 10px black;
   font-size: 3rem;
   position: absolute;
   top: 50%;
