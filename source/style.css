@@ -108,6 +108,7 @@ body {
   color: white;
 }
 #life {
+  z-index: 9999;
   display: none;
   font-size: 1rem;
   position: absolute;

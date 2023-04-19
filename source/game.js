@@ -61,7 +61,7 @@ class rainDrop {
 const time = {
   start: 0,
   elapsed: 0,
-  level: 2,
+  level: 1,
   frameStart: 0,
   frameCheck: 0,
   levelCheck: 0,
@@ -100,7 +100,7 @@ function game(now = 0) {
   $life.textContent = heart;
   time.frameCheck = now - time.frameStart;
   time.elapsed = now - time.start;
-  if (time.levelCheck - now > 10000) {
+  if (now - time.levelCheck > 15000) {
     time.levelCheck = now;
     time.level++;
   }
